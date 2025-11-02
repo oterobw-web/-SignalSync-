@@ -19,3 +19,4 @@ Professional NextGen TV 3.0 and MIMO antenna installation services website.
 - CSS3
 - JavaScript (Custom Web Components)
 - TailwindCSS
+# -SignalSync-
