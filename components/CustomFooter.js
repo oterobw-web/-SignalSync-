@@ -1,4 +1,8 @@
-class CustomFooter extends HTMLElement {
+# Rename your main branch to 'main' if it's not already
+git branch -M main
+
+# Push to GitHub
+git push -u origin mainclass CustomFooter extends HTMLElement {
   static get observedAttributes() {
     return ['theme'];
   }
@@ -14,25 +18,53 @@ class CustomFooter extends HTMLElement {
     this.loadFeatherIcons();
   }
 
+  disconnectedCallback() {
+    // placeholder for cleanup if needed later
+  }
+
   async loadFeatherIcons() {
     if (this.featherLoaded) return;
-    
-    try {
+
+    // If feather is already available globally, use it
+    if (window.feather) {
+      try {
+        window.feather.replace(this.shadowRoot.querySelectorAll('[data-feather]'));
+        this.featherLoaded = true;
+        return;
+      } catch (err) {
+        console.warn('Feather found but replace failed:', err);
+      }
+    }
+
+    // Avoid loading the script multiple times
+    const existing = document.getElementById('feather-icons-script');
+    if (existing) {
+      await new Promise((resolve, reject) => {
+        existing.addEventListener('load', resolve, { once: true });
+        existing.addEventListener('error', reject, { once: true });
+      }).catch(() => {});
+    } else {
       const script = document.createElement('script');
+      script.id = 'feather-icons-script';
       script.src = 'https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js';
-      
+      script.defer = true;
+
       await new Promise((resolve, reject) => {
         script.onload = resolve;
         script.onerror = reject;
         document.head.appendChild(script);
+      }).catch((err) => {
+        console.error('Failed to load Feather icons script:', err);
       });
+    }
 
-      if (window.feather) {
+    if (window.feather) {
+      try {
         window.feather.replace(this.shadowRoot.querySelectorAll('[data-feather]'));
         this.featherLoaded = true;
+      } catch (err) {
+        console.error('Failed to replace feather icons in shadow DOM:', err);
       }
-    } catch (err) {
-      console.error('Failed to load Feather icons:', err);
     }
   }
 
