@@ -1,0 +1,98 @@
+/* Theme variables */
+:root {
+  /* Colors */
+  --primary: #3B82F6;
+  --secondary: #10B981;
+  --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Animation */
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --scale-hover: 1.05;
+  --translate-hover: -5px;
+}
+
+/* Base styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scroll with reduced motion preference */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Custom shadows */
+.shadow-custom {
+    box-shadow: var(--shadow-sm);
+}
+
+/* Interactive images - only apply to images with .interactive class */
+.interactive {
+    transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .interactive:hover,
+    .interactive:focus-visible {
+        transform: scale(var(--scale-hover));
+        box-shadow: var(--shadow-lg);
+    }
+}
+
+/* Service cards */
+.service-card {
+    transition: transform var(--transition-normal);
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .service-card:hover,
+    .service-card:focus-visible {
+        transform: translateY(var(--translate-hover));
+    }
+}
+
+/* Gradient text with fallback */
+.gradient-text {
+    background-image: linear-gradient(to right, var(--primary), var(--secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--primary); /* Fallback */
+    -webkit-text-fill-color: transparent;
+}
+
+/* Print styles */
+@media print {
+    .service-card,
+    .interactive {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    .gradient-text {
+        color: var(--primary) !important;
+        background: none !important;
+        -webkit-text-fill-color: currentColor !important;
+    }
+}
+
+/* Preconnect and font link */
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+/* Example HTML usage */
+/* <img class="interactive" src="..." alt="..."> */
