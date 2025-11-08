@@ -1,43 +1,53 @@
-/* Theme variables */
+
+/* ---------------------------- */
+/* Theme Variables and Settings */
+/* ---------------------------- */
 :root {
   /* Colors */
   --primary: #3B82F6;
   --secondary: #10B981;
   --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+               0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  
-  /* Animation */
+
+  /* Animations */
+  --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
   --scale-hover: 1.05;
   --translate-hover: -5px;
 }
 
-/* Base styles */
+/* ---------------------------- */
+/* Base Styles */
+/* ---------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-body {
+html {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scroll with reduced motion preference */
+/* Smooth scroll (respects reduced motion) */
 @media (prefers-reduced-motion: no-preference) {
     html {
         scroll-behavior: smooth;
     }
 }
 
-/* Custom shadows */
-.shadow-custom {
-    box-shadow: var(--shadow-sm);
-}
+/* ---------------------------- */
+/* Shadows & Elevation */
+/* ---------------------------- */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
 
-/* Interactive images - only apply to images with .interactive class */
+/* ---------------------------- */
+/* Interactive Elements */
+/* ---------------------------- */
 .interactive {
     transition: transform var(--transition-slow), box-shadow var(--transition-slow);
     will-change: transform;
@@ -52,7 +62,7 @@ body {
     }
 }
 
-/* Service cards */
+/* Service Cards */
 .service-card {
     transition: transform var(--transition-normal);
     will-change: transform;
@@ -65,23 +75,27 @@ body {
     }
 }
 
-/* Gradient text with fallback */
+/* ---------------------------- */
+/* Gradient Text Utility */
+/* ---------------------------- */
 .gradient-text {
-    background-image: linear-gradient(to right, var(--primary), var(--secondary));
+    background: linear-gradient(to right, var(--primary), var(--secondary));
     background-clip: text;
     -webkit-background-clip: text;
-    color: var(--primary); /* Fallback */
+    color: var(--primary); /* fallback */
     -webkit-text-fill-color: transparent;
 }
 
-/* Print styles */
+/* ---------------------------- */
+/* Print Styles */
+/* ---------------------------- */
 @media print {
     .service-card,
     .interactive {
         transform: none !important;
         box-shadow: none !important;
     }
-    
+
     .gradient-text {
         color: var(--primary) !important;
         background: none !important;
@@ -89,10 +103,8 @@ body {
     }
 }
 
-/* Preconnect and font link */
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-/* Example HTML usage */
-/* <img class="interactive" src="..." alt="..."> */
+/* ---------------------------- */
+/* Accessibility Tip */
+/* ---------------------------- */
+/* Always pair .interactive images with alt text for screen readers. */
+/* Example: <img class="interactive" src="image.jpg" alt="Description"> */
