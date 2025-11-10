@@ -1,5 +1,4 @@
-
-          <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,61 +8,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-        
+
+        * { font-family: 'Inter', sans-serif; }
+
         .form-container {
             background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        
-        .input-field {
-            transition: all 0.3s ease;
-        }
-        
-        .input-field:focus {
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
-        
+
+        .input-field { transition: all 0.3s ease; }
+        .input-field:focus { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
+
         .success-message {
             background: rgba(21, 128, 61, 0.2);
             border: 1px solid rgba(34, 197, 94, 0.5);
         }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        .slide-up {
-            animation: slideUp 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
+
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        .slide-up { animation: slideUp 0.5s ease-out; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
         .stagger-1 { animation-delay: 0.1s; }
         .stagger-2 { animation-delay: 0.2s; }
         .stagger-3 { animation-delay: 0.3s; }
         .stagger-4 { animation-delay: 0.4s; }
         .stagger-5 { animation-delay: 0.5s; }
         .stagger-6 { animation-delay: 0.6s; }
-        
-        .scale-hover {
-            transition: transform 0.3s ease;
-        }
-        
-        .scale-hover:hover {
-            transform: scale(1.02);
-        }
+
+        .scale-hover { transition: transform 0.3s ease; }
+        .scale-hover:hover { transform: scale(1.02); }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex items-center justify-center p-4">
@@ -77,93 +52,49 @@
                     Fill out the form below and we'll get back to you within 24 hours
                 </p>
             </div>
-            
-            <!-- Success Message (Hidden by default) -->
+
+            <!-- Success Message -->
             <div id="success-message" class="success-message text-green-300 px-4 py-3 rounded-lg mb-6 fade-in hidden">
                 <div class="flex items-center">
                     <i class="fas fa-check-circle mr-2"></i>
                     <span>Thank you! Your estimate request has been submitted. We will contact you shortly.</span>
                 </div>
             </div>
-            
-            <!-- Netlify Form -->
+
+            <!-- Getform.io Form -->
             <form 
                 class="grid md:grid-cols-2 gap-5" 
-                name="contact" 
-                method="POST" 
-                data-netlify="true"
-                netlify-honeypot="bot-field"
+                action="https://getform.io/f/bzygmwma" 
+                method="POST"
             >
-                <!-- Honeypot field for spam protection -->
-                <div class="hidden">
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                </div>
-                
-                <!-- Hidden form name for Netlify -->
-                <input type="hidden" name="form-name" value="contact">
-                
+                <!-- Honeypot -->
+                <input type="hidden" name="_gotcha" style="display:none !important">
+
                 <div class="fade-in stagger-1">
-                    <label for="name" class="block text-gray-300 mb-2 font-medium">
-                        Full Name <span class="text-red-400">*</span>
-                    </label>
+                    <label for="name" class="block text-gray-300 mb-2 font-medium">Full Name <span class="text-red-400">*</span></label>
                     <div class="scale-hover">
-                        <input 
-                            type="text" 
-                            id="name"
-                            name="name"
-                            class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500"
-                            required
-                            placeholder="John Smith"
-                            autocomplete="name"
-                        >
+                        <input type="text" id="name" name="name" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500" required placeholder="John Smith" autocomplete="name">
                     </div>
                 </div>
-                
+
                 <div class="fade-in stagger-2">
-                    <label for="phone" class="block text-gray-300 mb-2 font-medium">
-                        Phone Number <span class="text-red-400">*</span>
-                    </label>
+                    <label for="phone" class="block text-gray-300 mb-2 font-medium">Phone Number <span class="text-red-400">*</span></label>
                     <div class="scale-hover">
-                        <input 
-                            type="tel" 
-                            id="phone"
-                            name="phone"
-                            class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500"
-                            required
-                            placeholder="(555) 123-4567"
-                            autocomplete="tel"
-                        >
+                        <input type="tel" id="phone" name="phone" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500" required placeholder="(555) 123-4567" autocomplete="tel">
                     </div>
                 </div>
-                
+
                 <div class="fade-in stagger-3">
-                    <label for="email" class="block text-gray-300 mb-2 font-medium">
-                        Email Address <span class="text-red-400">*</span>
-                    </label>
+                    <label for="email" class="block text-gray-300 mb-2 font-medium">Email Address <span class="text-red-400">*</span></label>
                     <div class="scale-hover">
-                        <input 
-                            type="email" 
-                            id="email"
-                            name="email"
-                            class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500"
-                            required
-                            placeholder="john@example.com"
-                            autocomplete="email"
-                        >
+                        <input type="email" id="email" name="email" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500" required placeholder="john@example.com" autocomplete="email">
                     </div>
                 </div>
-                
+
                 <div class="fade-in stagger-4">
-                    <label for="service" class="block text-gray-300 mb-2 font-medium">
-                        Service Needed <span class="text-red-400">*</span>
-                    </label>
+                    <label for="service" class="block text-gray-300 mb-2 font-medium">Service Needed <span class="text-red-400">*</span></label>
                     <div class="scale-hover">
-                        <select 
-                            id="service"
-                            name="service"
-                            class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 appearance-none cursor-pointer"
-                            required
-                        >
+                        <select id="service" name="service" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 appearance-none cursor-pointer" required>
                             <option value="" disabled selected class="text-gray-500">Select a service</option>
                             <option value="NextGen TV 3.0 Installation">NextGen TV 3.0 Installation</option>
                             <option value="MIMO Antenna Installation">MIMO Antenna Installation</option>
@@ -173,28 +104,16 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="md:col-span-2 fade-in stagger-5">
-                    <label for="message" class="block text-gray-300 mb-2 font-medium">
-                        Message
-                    </label>
+                    <label for="message" class="block text-gray-300 mb-2 font-medium">Message</label>
                     <div class="scale-hover">
-                        <textarea 
-                            id="message"
-                            name="message"
-                            rows="4" 
-                            class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 resize-none placeholder-gray-500"
-                            placeholder="Tell us about your installation needs, property details, or any specific requirements..."
-                        ></textarea>
+                        <textarea id="message" name="message" rows="4" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 resize-none placeholder-gray-500" placeholder="Tell us about your installation needs..."></textarea>
                     </div>
                 </div>
-                
+
                 <div class="md:col-span-2 fade-in stagger-6">
-                    <button 
-                        type="submit" 
-                        id="submit-btn"
-                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 flex items-center justify-center group mt-2"
-                    >
+                    <button type="submit" id="submit-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 flex items-center justify-center group mt-2">
                         <span id="btn-text">Submit Request</span>
                         <svg id="btn-spinner" class="hidden w-5 h-5 ml-2 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -206,7 +125,7 @@
                     </p>
                 </div>
             </form>
-            
+
             <div class="mt-10 pt-6 border-t border-gray-700">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                     <div class="text-gray-400">
@@ -224,7 +143,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="text-center mt-6 text-gray-500 text-sm">
             <p>© 2023 SignalSync. All rights reserved.</p>
         </div>
@@ -232,53 +151,34 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Form handling
-            const form = document.querySelector('form[name="contact"]');
+            const form = document.querySelector('form');
             const successMessage = document.getElementById('success-message');
             const submitBtn = document.getElementById('submit-btn');
             const btnText = document.getElementById('btn-text');
             const btnSpinner = document.getElementById('btn-spinner');
-            
-            if (form) {
-                // Handle form submission
-                form.addEventListener('submit', function(e) {
-                    // For demo purposes - in production, Netlify will handle this
-                    e.preventDefault();
-                    
-                    // Show loading state
-                    submitBtn.disabled = true;
-                    btnText.textContent = 'Submitting...';
-                    btnSpinner.classList.remove('hidden');
-                    
-                    // Simulate form submission (remove this in production)
-                    setTimeout(function() {
-                        // Show success message
-                        successMessage.classList.remove('hidden');
-                        
-                        // Reset form
-                        form.reset();
-                        
-                        // Reset button state
-                        submitBtn.disabled = false;
-                        btnText.textContent = 'Submit Request';
-                        btnSpinner.classList.add('hidden');
-                        
-                        // Scroll to success message
-                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 1500);
-                });
-            }
-            
-            // Add subtle animations to form inputs on focus
+
+            form.addEventListener('submit', function() {
+                // Show loading state
+                submitBtn.disabled = true;
+                btnText.textContent = 'Submitting...';
+                btnSpinner.classList.remove('hidden');
+
+                // Let Getform handle the submission
+                // After submission, show success message
+                setTimeout(() => {
+                    successMessage.classList.remove('hidden');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Submit Request';
+                    btnSpinner.classList.add('hidden');
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 1500);
+            });
+
             const inputs = document.querySelectorAll('input, textarea, select');
             inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.classList.add('scale-105');
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.classList.remove('scale-105');
-                });
+                input.addEventListener('focus', () => input.parentElement.classList.add('scale-105'));
+                input.addEventListener('blur', () => input.parentElement.classList.remove('scale-105'));
             });
         });
     </script>
