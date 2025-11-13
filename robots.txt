@@ -1,7 +1,39 @@
+# ---------------------------------------
 # robots.txt for https://signalsync.tv/
+# Optimized for Google, Bing, Applebot, and AI crawlers
+# Updated: 2025-11-11
+# ---------------------------------------
 
+# 🧭 General rule for all bots
 User-agent: *
 Allow: /
 
-# Sitemap location
+# 🚫 Optional: block internal or temporary folders
+Disallow: /admin/
+Disallow: /temp/
+Disallow: /backup/
+Disallow: /drafts/
+Disallow: /private/
+
+# 🎯 Specific bot tuning
+# Let Google Image Bot crawl only public images
+User-agent: Googlebot-Image
+Allow: /images/
+Disallow: /private-images/
+
+# Bingbot — throttle slightly if you ever host large media
+User-agent: Bingbot
+Crawl-delay: 5
+
+# 🧩 AI crawlers (optional but good etiquette)
+User-agent: ChatGPT-User
+Allow: /
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+
+# 📄 Sitemap reference
 Sitemap: https://signalsync.tv/sitemap.xml
