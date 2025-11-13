@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository with credentials
+      # 1️⃣ Checkout repository (no need to push here; just fetch)
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: true
+          persist-credentials: false  # We'll use PAT for push
 
       # 2️⃣ Generate sitemap.xml
       - name: Generate sitemap.xml
@@ -24,15 +24,11 @@ jobs:
 
           # Loop through all HTML files, including subfolders
           find . -type f -name "*.html" | while read f; do
-            # Remove leading ./ for URL
             url_path=$(echo "$f" | sed 's|^\./||')
-
-            # Skip 404.html
             if [[ "$url_path" == "404.html" ]]; then
               continue
             fi
 
-            # Determine priority
             if [[ "$url_path" == "index.html" ]]; then
               priority="1.0"
               changefreq="weekly"
@@ -44,10 +40,7 @@ jobs:
               changefreq="monthly"
             fi
 
-            # Get file last modified date in ISO 8601 format
             lastmod=$(date -u -r "$f" +"%Y-%m-%dT%H:%M:%S+00:00")
-
-            # Add URL entry
             echo "  <url><loc>https://signalsync.tv/${url_path}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>" >> sitemap.xml
           done
 
@@ -62,11 +55,13 @@ jobs:
             echo "Sitemap: https://signalsync.tv/sitemap.xml" >> robots.txt
           fi
 
-      # 4️⃣ Commit and push changes
+      # 4️⃣ Commit and push changes using PAT
       - name: Commit and push updates
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add sitemap.xml robots.txt
           git commit -m "Auto-update sitemap and robots.txt [skip ci]" || echo "No changes to commit"
-          git push origin main
+          git push https://$GH_PAT@github.com/oterobw-web/-SignalSync-.git HEAD:main
