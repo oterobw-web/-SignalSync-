@@ -12,7 +12,54 @@ jobs:
 
     steps:
       - name: Checkout repository
+        uses: actions/checkout@v3name: Auto-generate sitemap & robots.txt
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ✅ Checkout your repository with credentials
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      # Generate sitemap.xml
+      - name: Generate sitemap.xml
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          for f in $(find . -maxdepth 1 -name "*.html" | sed 's|^\./||'); do
+            url="https://signalsync.tv/${f}"
+            lastmod=$(date -u +"%Y-%m-%dT%H:%M:%S+00:00")
+            echo "  <url><loc>${url}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>" >> sitemap.xml
+          done
+          echo '</urlset>' >> sitemap.xml
+
+      # Ensure robots.txt exists
+      - name: Ensure robots.txt exists
+        run: |
+          if [ ! -f robots.txt ]; then
+            echo "User-agent: *" > robots.txt
+            echo "Allow: /" >> robots.txt
+            echo "Sitemap: https://signalsync.tv/sitemap.xml" >> robots.txt
+          fi
+
+      # Commit and push updates
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add sitemap.xml robots.txt
+          git commit -m "Auto-update sitemap and robots.txt [skip ci]" || echo "No changes to commit"
+          git push origin main
+
 
       - name: Generate sitemap.xml
         run: |
