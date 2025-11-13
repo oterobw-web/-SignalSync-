@@ -1,4 +1,4 @@
-name: Auto-generate sitemap & robots.txt
+name: Auto-generate sitemap & robots.txt (HTML + Images)
 
 on:
   push:
@@ -10,19 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository (no need to push here; just fetch)
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # We'll use PAT for push
+          persist-credentials: false  # PAT will handle push
 
-      # 2️⃣ Generate sitemap.xml
+      # 2️⃣ Generate sitemap.xml with images
       - name: Generate sitemap.xml
         run: |
-          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
-          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          sitemap_file="sitemap.xml"
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > $sitemap_file
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' >> $sitemap_file
 
-          # Loop through all HTML files, including subfolders
+          # Loop through HTML files
           find . -type f -name "*.html" | while read f; do
             url_path=$(echo "$f" | sed 's|^\./||')
             if [[ "$url_path" == "404.html" ]]; then
@@ -41,10 +42,20 @@ jobs:
             fi
 
             lastmod=$(date -u -r "$f" +"%Y-%m-%dT%H:%M:%S+00:00")
-            echo "  <url><loc>https://signalsync.tv/${url_path}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>" >> sitemap.xml
+
+            echo "  <url><loc>https://signalsync.tv/${url_path}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority>" >> $sitemap_file
+
+            # Include images in the same folder
+            folder=$(dirname "$f")
+            find "$folder" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) | while read img; do
+              img_url=$(echo "$img" | sed 's|^\./|https://signalsync.tv/|')
+              echo "    <image:image><image:loc>${img_url}</image:loc></image:image>" >> $sitemap_file
+            done
+
+            echo "  </url>" >> $sitemap_file
           done
 
-          echo '</urlset>' >> sitemap.xml
+          echo '</urlset>' >> $sitemap_file
 
       # 3️⃣ Ensure robots.txt exists
       - name: Ensure robots.txt exists
@@ -55,7 +66,7 @@ jobs:
             echo "Sitemap: https://signalsync.tv/sitemap.xml" >> robots.txt
           fi
 
-      # 4️⃣ Commit and push changes using PAT
+      # 4️⃣ Commit and push using PAT
       - name: Commit and push updates
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -63,5 +74,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add sitemap.xml robots.txt
-          git commit -m "Auto-update sitemap and robots.txt [skip ci]" || echo "No changes to commit"
+          git commit -m "Auto-update sitemap + images + robots.txt [skip ci]" || echo "No changes to commit"
           git push https://$GH_PAT@github.com/oterobw-web/-SignalSync-.git HEAD:main
