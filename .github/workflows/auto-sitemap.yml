@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: false  # PAT will handle push
+          persist-credentials: false  # GH_PAT will handle push
 
       # 2️⃣ Generate sitemap.xml with images
       - name: Generate sitemap.xml
@@ -26,9 +26,7 @@ jobs:
           # Loop through HTML files
           find . -type f -name "*.html" | while read f; do
             url_path=$(echo "$f" | sed 's|^\./||')
-            if [[ "$url_path" == "404.html" ]]; then
-              continue
-            fi
+            [[ "$url_path" == "404.html" ]] && continue
 
             if [[ "$url_path" == "index.html" ]]; then
               priority="1.0"
@@ -45,9 +43,8 @@ jobs:
 
             echo "  <url><loc>https://signalsync.tv/${url_path}</loc><lastmod>${lastmod}</lastmod><changefreq>${changefreq}</changefreq><priority>${priority}</priority>" >> $sitemap_file
 
-            # Include images in the same folder
-            folder=$(dirname "$f")
-            find "$folder" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) | while read img; do
+            # Include all images in images/ folder globally
+            find images/ -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) | while read img; do
               img_url=$(echo "$img" | sed 's|^\./|https://signalsync.tv/|')
               echo "    <image:image><image:loc>${img_url}</image:loc></image:image>" >> $sitemap_file
             done
@@ -57,16 +54,18 @@ jobs:
 
           echo '</urlset>' >> $sitemap_file
 
-      # 3️⃣ Ensure robots.txt exists
-      - name: Ensure robots.txt exists
+      # 3️⃣ Ensure robots.txt exists and points to sitemap
+      - name: Update robots.txt
         run: |
           if [ ! -f robots.txt ]; then
             echo "User-agent: *" > robots.txt
             echo "Allow: /" >> robots.txt
-            echo "Sitemap: https://signalsync.tv/sitemap.xml" >> robots.txt
           fi
 
-      # 4️⃣ Commit and push using PAT
+          # Ensure sitemap line is correct
+          grep -q "Sitemap:" robots.txt && sed -i 's|Sitemap:.*|Sitemap: https://signalsync.tv/sitemap.xml|' robots.txt || echo "Sitemap: https://signalsync.tv/sitemap.xml" >> robots.txt
+
+      # 4️⃣ Commit and push updates using GH_PAT
       - name: Commit and push updates
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -74,5 +73,5 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add sitemap.xml robots.txt
-          git commit -m "Auto-update sitemap + images + robots.txt [skip ci]" || echo "No changes to commit"
+          git diff --quiet || git commit -m "Auto-update sitemap + images + robots.txt [skip ci]"
           git push https://$GH_PAT@github.com/oterobw-web/-SignalSync-.git HEAD:main
