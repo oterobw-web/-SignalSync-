@@ -1,0 +1,7 @@
+# robots.txt for https://signalsync.tv/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://signalsync.tv/sitemap.xml
