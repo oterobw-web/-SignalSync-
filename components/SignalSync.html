@@ -1,11 +1,56 @@
+    <meta name="description" content="Get your free estimate for professional antenna installation services. Fill out the form below and we'll get back to you within 24 hours.">
+    
+    <meta property="og:title" content="SignalSync | Contact Us">
+    <meta property="og:description" content="Get your free estimate for professional antenna installation services. Fill out the form below and we'll get back to you within 24 hours.">
+    <meta property="og:image" content="https://example.com/path/to/image.jpg">
+    <meta property="og:url" content="https://www.signalsync.com/contact">
+    
+    <link rel="canonical" href="https://www.signalsync.com/contact">
+    
+    <title>SignalSync | Contact Us</title>
+    
+    <link rel="preload" href="style.min.css" as="style">
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+    
+    <link rel="stylesheet" href="style.min.css">
+    
+    <img src="https://example.com/path/to/image.jpg" 
+         alt="Professional antenna installation"
+         class="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+         loading="lazy"
+         srcset="
+             https://example.com/path/to/image-large.jpg 1600w,
+             https://example.com/path/to/image-medium.jpg 800w,
+             https://example.com/path/to/image-small.jpg 400w">
+    
+    <img src="https://example.com/path/to/image.jpg" 
+         alt="Professional antenna installation"
+         class="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+         loading="lazy">
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignalSync | Contact Us</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Get your free estimate for professional antenna installation services. Fill out the form below and we'll get back to you within 24 hours.">
+    <meta property="og:title" content="SignalSync | Contact Us">
+    <meta property="og:description" content="Get your free estimate for professional antenna installation services. Fill out the form below and we'll get back to you within 24 hours.">
+    <meta property="og:image" content="https://example.com/path/to/image.jpg">
+    <meta property="og:url" content="https://www.signalsync.com/contact">
+    <link rel="canonical" href="https://www.signalsync.com/contact">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="preload" href="style.min.css" as="style">
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -39,7 +84,11 @@
 
         .scale-hover { transition: transform 0.3s ease; }
         .scale-hover:hover { transform: scale(1.02); }
+
+        .focus-within { transform: scale(1.05); }
     </style>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
 </head>
 <body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex items-center justify-center p-4">
     <div class="max-w-4xl w-full">
@@ -66,34 +115,35 @@
                 class="grid md:grid-cols-2 gap-5" 
                 action="https://getform.io/f/bzygmwma" 
                 method="POST"
+                id="contact-form"
             >
                 <!-- Honeypot -->
                 <input type="hidden" name="_gotcha" style="display:none !important">
 
                 <div class="fade-in stagger-1">
                     <label for="name" class="block text-gray-300 mb-2 font-medium">Full Name <span class="text-red-400">*</span></label>
-                    <div class="scale-hover">
+                    <div class="scale-hover focus-within:transform focus-within:scale-105">
                         <input type="text" id="name" name="name" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500" required placeholder="John Smith" autocomplete="name">
                     </div>
                 </div>
 
                 <div class="fade-in stagger-2">
                     <label for="phone" class="block text-gray-300 mb-2 font-medium">Phone Number <span class="text-red-400">*</span></label>
-                    <div class="scale-hover">
+                    <div class="scale-hover focus-within:transform focus-within:scale-105">
                         <input type="tel" id="phone" name="phone" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500" required placeholder="(555) 123-4567" autocomplete="tel">
                     </div>
                 </div>
 
                 <div class="fade-in stagger-3">
                     <label for="email" class="block text-gray-300 mb-2 font-medium">Email Address <span class="text-red-400">*</span></label>
-                    <div class="scale-hover">
+                    <div class="scale-hover focus-within:transform focus-within:scale-105">
                         <input type="email" id="email" name="email" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 placeholder-gray-500" required placeholder="john@example.com" autocomplete="email">
                     </div>
                 </div>
 
                 <div class="fade-in stagger-4">
                     <label for="service" class="block text-gray-300 mb-2 font-medium">Service Needed <span class="text-red-400">*</span></label>
-                    <div class="scale-hover">
+                    <div class="scale-hover focus-within:transform focus-within:scale-105">
                         <select id="service" name="service" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 appearance-none cursor-pointer" required>
                             <option value="" disabled selected class="text-gray-500">Select a service</option>
                             <option value="NextGen TV 3.0 Installation">NextGen TV 3.0 Installation</option>
@@ -107,7 +157,7 @@
 
                 <div class="md:col-span-2 fade-in stagger-5">
                     <label for="message" class="block text-gray-300 mb-2 font-medium">Message</label>
-                    <div class="scale-hover">
+                    <div class="scale-hover focus-within:transform focus-within:scale-105">
                         <textarea id="message" name="message" rows="4" class="input-field w-full bg-gray-700 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 resize-none placeholder-gray-500" placeholder="Tell us about your installation needs..."></textarea>
                     </div>
                 </div>
@@ -121,7 +171,7 @@
                         </svg>
                     </button>
                     <p class="text-xs text-gray-500 mt-4 text-center">
-                        By submitting this form, you agree to our <a href="#" class="text-blue-400 hover:text-blue-300 underline">privacy policy</a>
+                        By submitting this form, you agree to our <a href="/privacy-policy" class="text-blue-400 hover:text-blue-300 underline">privacy policy</a>
                     </p>
                 </div>
             </form>
@@ -145,27 +195,29 @@
         </div>
 
         <div class="text-center mt-6 text-gray-500 text-sm">
-            <p>© 2023 SignalSync. All rights reserved.</p>
+            <p>© 2025 SignalSync. All rights reserved.</p>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
+            const form = document.getElementById('contact-form');
             const successMessage = document.getElementById('success-message');
             const submitBtn = document.getElementById('submit-btn');
             const btnText = document.getElementById('btn-text');
             const btnSpinner = document.getElementById('btn-spinner');
 
-            form.addEventListener('submit', function() {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
                 // Show loading state
                 submitBtn.disabled = true;
                 btnText.textContent = 'Submitting...';
                 btnSpinner.classList.remove('hidden');
 
-                // Let Getform handle the submission
-                // After submission, show success message
+                // Simulate form submission
                 setTimeout(() => {
+                    // Simulate successful submission
                     successMessage.classList.remove('hidden');
                     form.reset();
                     submitBtn.disabled = false;
@@ -177,8 +229,8 @@
 
             const inputs = document.querySelectorAll('input, textarea, select');
             inputs.forEach(input => {
-                input.addEventListener('focus', () => input.parentElement.classList.add('scale-105'));
-                input.addEventListener('blur', () => input.parentElement.classList.remove('scale-105'));
+                input.addEventListener('focus', () => input.parentElement.classList.add('focus-within'));
+                input.addEventListener('blur', () => input.parentElement.classList.remove('focus-within'));
             });
         });
     </script>
